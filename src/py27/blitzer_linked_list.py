@@ -27,27 +27,28 @@ class lnklst:
     for competitive programming
     """
     #----------------------------------------
-    # creating the object
+    # Constructor
     def __init__(self):
         self.head = None # set the head of the linked list as null
         self.tail = None # set the last of the linked list as null
         self.size = 0 # set linked list size as 0
 
-    # print the full list
-    def print_list(self):
+    #----------------------------------------
+    # Print the full list
+    def print_all(self):
         node = self.head
         while(node):
             # at end of list
             if(node.next == None):
                 print(node.data) # we print data and go to new line
-                node = node.next #iterator
+                node = node.next # iterator
             else:
                 print(node.data),
                 node = node.next #iterator
         # end while
 
     #----------------------------------------
-    # find and updata self.tail
+    # Find and updata self.tail
     def update_tail(self):
         # incase tail is not already set
         if(self.tail == None):
@@ -62,7 +63,7 @@ class lnklst:
         self.tail = tail
 
     #----------------------------------------
-    # insert a new node at the begining
+    # Insert a new node at the begining
     def prepend(self,new_node):
         # ensure linked list size calculation is done to get correct sizes later
         self.get_size()
@@ -79,7 +80,7 @@ class lnklst:
         self.size = self.size + 1
 
     #----------------------------------------
-    # insert after a certain node
+    # Insert after a certain node
     def insert_after(self,prev_node,new_node):
         # ensure linked list size calculation is done to get correct sizes later
         self.get_size()
@@ -97,7 +98,7 @@ class lnklst:
         self.size = self.size + 1
 
     #----------------------------------------
-    # add a node at the end in O(1)
+    # Add a node at the end in O(1)
     def append(self,new_node):
         # ensure linked list size calculation is done to get correct sizes later
         self.get_size()
@@ -123,7 +124,7 @@ class lnklst:
         self.size = self.size + 1
         return
     #----------------------------------------
-    # delete node with the data same as passed dataKey
+    # Delete node with the data same as passed dataKey
     def delete(self,data_key):
         # if linked list is empty
         if(self.head == None):
@@ -132,7 +133,7 @@ class lnklst:
         # otherwise traverse over the full list to find the first occurence
         node = self.head
         n    = node
-        while(node.next):
+        while(node.next):                          # complexity O(n)
             n = node # current node
             node = node.next # next node # iterator
             # if we find the node with the same data key then remove it
@@ -147,20 +148,20 @@ class lnklst:
         #end while
 
     #----------------------------------------
-    # delete the linked list
+    # Delete the linked list
     def delete_all(self):
         self.head = None
         self.tail = None
         self.size = 0
 
     #----------------------------------------
-    # return the size of the singly linked link list
+    # Get the size of the singly linked link list
     def get_size(self,force_recount = False):
         # return the stored size if not forced with O(1) complexity
         if(self.size > 0 and force_recount == False):
             return self.size
         else:
-            print("INF : pre forced calculation self.size : "+str(self.size))
+            print("INF : pre forced calculation self.size : " + str(self.size))
             print("INF : performing linked list forced size count...")
             #else do forced recount with O(n) complexity
             node  = self.head
@@ -174,7 +175,7 @@ class lnklst:
             return count
 
     #----------------------------------------
-    # search and return if we find an object with the same passed data key
+    # Search and return if we find an object with the same passed data key
     def search(self,data_key):
         # if head is null
         if(self.head == None):
@@ -189,7 +190,7 @@ class lnklst:
         return False
 
     #----------------------------------------
-    # go to nth position and get node
+    # Go to nth position and get node
     def at(self,n):
         node  = self.head
         i = 0 # accessor
@@ -208,7 +209,7 @@ class lnklst:
         assert(False)
 
     #----------------------------------------
-    # go to nth position from the last
+    # Go to nth position from the last
     def at_rev(self,n):
         # if n == 1 then return tail
         if(n == 1):                      # complexity O(1)
@@ -228,7 +229,7 @@ class lnklst:
 
     #----------------------------------------
     # Floyd's cycle finding algorithm to detect loops in linked list
-    def find_loop(self):
+    def is_loop(self):
         # we use a fast and slow node
         slow_node = self.head
         fast_node = self.head
@@ -260,50 +261,164 @@ class lnklst:
         print("")
         return count
 
-#===============================================================================
-#                                TESTS
-#===============================================================================
-def test_all():
-    """Run all unit tests to ensure everything is okay with the library
-    """
-    test1()
+    #----------------------------------------
+    # Reverse the full linked list
+    def reverse(self):
+        old_head  = self.head            # save the current head
+        prev_node = None                 # previous node
+        curr_node = self.head            # current node
+        next_node = None                 # next node
 
-def test1():
-    """Linked list creation test
-    """
-    print("INF : running cplnklst.test1()...")
-    # create linked list and assign head
-    llist = lnklst()
-    llist.head = node(1)
+        # traverse the full list and reverse it
+        while(curr_node):                    # Complexity of O(n)
+            next_node = curr_node.next       # set next_node
+            curr_node.next = prev_node       # break link and rotate it 90 deg
+            prev_node = curr_node            # move prev_node to curr_node
+            curr_node = next_node            # move curr_node to next_node
+        #end while
+        self.head = prev_node                # set the last element as head
+        self.tail = old_head                 # set the first element as tail
 
-    # create separate nodes which will be put in the linked list
-    second = node(2)
-    third  = node(3)
-    fourth = node(4)
-    fifth  = node(5)
-    sixth  = node(6)
-    seventh= node(7)
-    eighth = node(8)
+    #----------------------------------------
+    # Print reverse without using any more space
+    def print_reverse(self, node):
+        if(node is None):
+            return                         # return control back
+        # end if
+        self.print_reverse(node.next)      # call recursively next level
+        print(node.data),                  # print in one line
 
+    #----------------------------------------
+    # Swap nodes with the given dataKeys
+    def swap(self,data_key_1,data_key_2):
+        node  = self.head
+        node1 = None
+        node2 = None
+        prev_node  = None
+        prev_node1 = None
+        prev_node2 = None
+        # find both of the nodes
+        while(node): # complexity O(n)
+            # if one or both of them are not found
+            if(node1 == None or node2 == None):
+                if(node.data == data_key_1):
+                    node1 = node # the first node encountered
+                    prev_node1 = prev_node # the previous node of node1
+                elif(node.data == data_key_2):
+                    node2 = node # the second node encountered
+                    prev_node2 = prev_node # the previous node of node2
+            else: # if both of them are found
+                node = self.tail # go to end , casue here node.next == None
+            #end if
+            prev_node = node
+            node = node.next
+            #print("DBG : changed node")
+        # end while
 
-    # complete the linked list
-    llist.head.next = second #  bug : the tail is not updated
-    second.next = third
-    # third.next = None # is automatically set
-    llist.append(fourth) # add a new node at the end
-    llist.append(fifth) # add a new node at the end
-    llist.append(sixth) # add a new node at the end
-    llist.append(seventh)
-    llist.append(eighth)
-    # print all
-    llist.print_list()
-    print("size : " + str(llist.get_size()))
-    print(llist.search(5))
-    print(llist.search(3))
-    print(llist.at(0).data)
-    print(llist.at(1).data)
-    print(llist.at_rev(1).data)
-    print(llist.at_rev(4).data)
-    print(llist.at_rev(5).data)
-    llist.prepend(third)
-    print("loop size : " +str(llist.get_loop_size(llist.find_loop()[1])))
+        # error checking
+        if(self.get_size() <= 1):
+            print("ERR : can not swap with link list size <=1 ... ")
+            print("INF : asserting false... ")
+            assert(false)
+        # end if
+        if(node1 == None or node2 == None ):
+            print("INF : nodes not found to swap with data keys...")
+            print("INF : data_key_1 : " + str(data_key_1)),
+            print("\t | data_key_2 : "  + str(data_key_2))
+            print("INF : cancelling swap...")
+            return
+        elif( node1 == self.head ):
+            print("DBG : swapping node1, which is self.head ....")
+            next1 = node1.next
+            next2 = node2.next
+            # swap front to back
+            self.head = node2 # bring node2 to front  # TODO : looped lists ?
+            prev_node2.next = node1 # send node1 ot back
+            node2.next = next1 # link next of node1
+            node1.next = next2 # link next of node2
+            return
+        elif( node2 == self.tail):
+            print("DBG :  swapping node2, which is self.tail ....")
+            next1 = node1.next
+            next2 = node2.next # probably null but not necessarily
+            # swap front to back
+            prev_node1.next = node2
+            prev_node2.next = node1
+            node2.next = next1
+            node1.next = next2
+            return
+        elif(prev_node1 and prev_node2): # swap the nodes if prev_node is found
+            next1 = node1.next
+            next2 = node2.next
+            # swap front to back
+            prev_node1.next = node2
+            prev_node2.next = node1
+            node2.next = next1
+            node1.next = next2
+        else: # we have error
+            print("ERR : all swap tests failed...")
+            assert(False)
+
+    #----------------------------------------
+    # Swap head and tail
+    def swap_ends(self):
+        if(self.get_size() <=1): # compelexity O(1) or in very small cases O(n)
+            print("ERR : can not swap with link list size <=1 ... ")
+            print("INF : asserting false... ")
+            assert(false)
+
+        # we traverse list to find the node before tail
+        prev_node = self.head
+        while(prev_node.next is not self.tail): # causes complexity O(n)
+            prev_node = prev_node.next
+        # temporary variables
+        node1 = self.head
+        node2 = self.tail
+        next1 = self.head.next
+        next2 = self.tail.next
+        # swap head and tail from front to back
+        self.tail  = node1
+        self.head  = node2
+        # now we fix swapped connections,be very careful
+        self.head.next = next1 # previously tail
+        self.tail.next = next2 # previously head
+        # most importantly point the prev_node.next to the new tail
+        prev_node.next = self.tail
+        return
+
+    #----------------------------------------
+    # Join two different linked lists
+    def join(self,other):
+        if(other.__class__.__name__ is not "lnklst"):
+            raise TypeError("ERR : lnklst.join(self,other) :"
+            + " other needs to be object of lnklst class")
+        # end if
+        self.tail.next = other.head                 # simply link them
+        self.update_tail()                          # udpate tail to be correct
+        self.get_size(force_recount = True)         # update size to be correct
+
+    #----------------------------------------
+    # Are the two linked lists identical?
+    def is_identical(self,other):
+        if(other.__class__.__name__ is not "lnklst"):
+            raise TypeError("ERR : lnklst.is_identical(self,other) :"
+            + " other needs to be object of lnklst class")
+        # end if
+
+        n =  self.get_size()                # hopefully O(1) or worst O(n)
+        m = other.get_size()                # hopefully O(1) or worst O(n)
+
+        if (n != m):                        # first simple test hoping O(1)
+            return False
+        else:                     # n == m  # run test on both of the lists
+            node1 = self.head
+            node2 = other.head
+            # traverse both linked lists
+            while(node1 and node2):
+                if(node1.data != node2.data):
+                    return False
+                node1 = node1.next
+                node2 = node2.next
+            # end while
+
+        return True                         # if all tests fail means
