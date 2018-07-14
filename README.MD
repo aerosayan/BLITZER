@@ -1,7 +1,8 @@
 # BLITZER
 A competetive progamming library. Created, since in competitions I would like to focus on the problems and not spend time in creating standard data structures and algorithms. </br>
 
-![nobody-got-time](memes/nobody-got-time.jpg)
+![nobody-got-time](memes/nobody-got-time.jpg)</br>
+Lol! This is Kimberly "Sweet Brown" Wilkins, we love her.
 
 ## Author   : Sayan Bhattacharjee
 ## Email    : aero.sayan@gmail.com
