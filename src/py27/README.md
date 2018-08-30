@@ -1,11 +1,3 @@
-# BLITZER
-A competetive progamming library. Created, since in competitions I would like to focus on the problems and not spend time in creating standard data structures and algorithms. </br>
-
-
-## Author   : Sayan Bhattacharjee
-## Email    : aero.sayan@gmail.com
-#### License : DEFAULT forever, cause it's my bleeding edge.
-
 ### Modules created for Python27:
 #### Started creation on : 28/JUNE/2018
 + Single linked list module, has the following features
