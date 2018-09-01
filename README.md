@@ -11,6 +11,7 @@ and not spend time in creating standard data structures and algorithms. </br>
 + src/cpp   : C++ competitive library and files
 + src/py27  : Python 2.7 competitive library and files(will be depreciated in future)
 + src/py3x  : Python 3.x competitive library and files(to come in future)
++ src/spider  : competition dashboard scraper.
 
 
 ### And more to come...
